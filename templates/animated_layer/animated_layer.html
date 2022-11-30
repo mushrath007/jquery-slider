@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Animated Layer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="../../scripts/jquery-1.9.1.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../../bs301/css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="../../bs301/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="slider.css" />
+    <script type="text/javascript" src="../../scripts/slider.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../pagestyle.css" />
+
+    <link rel="stylesheet" href="../../bs301/font-awesome-4.3.0/css/font-awesome.min.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:500,600,700,400,200,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+
+        // rotate header images
+        $(document).ready(function($){
+
+          var setHeight = $('#madeHub header').innerHeight();
+          $('.header-wrapper, .foreground, .middleground, .background').height(setHeight);
+
+          var images = ['glory-header', 'thalia-header', 'peter-header', 'nataly-header', 'adriana-header', 'britney-header'];
+          // Remember where we are in the array, start just before the first entry
+          var classIndex = -1;
+
+          // Grab the element
+          var header = $("#madeHub header");
+
+          function randomBackground() {
+              $(header).removeClass();
+              $('.foreground').removeClass('animate-foreground');
+              $('.middleground').removeClass('animate-middleground');
+              $('.background').removeClass('animate-background');
+              $(header).addClass(images[~~(Math.random()*images.length)]);
+              $('.foreground').addClass('animate-foreground');
+              $('.middleground').addClass('animate-middleground');
+              $('.background').addClass('animate-background');
+          }
+
+         randomBackground();
+
+          function changeBackground() {
+            $(header).removeClass();
+            $('.foreground').removeClass('animate-foreground');
+            $('.foreground').removeClass('animate-foreground');
+            $('.middleground').removeClass('animate-middleground');
+            $('.background').removeClass('animate-background');
+
+              // If this isn't the first time, remove the previous class
+              if (classIndex >= 0) {
+                  header.removeClass(images[classIndex]);
+              }
+
+              // Update the index, wrapping around when we reach the end of the array
+              classIndex = (classIndex + 1) % images.length;
+
+              // Add the new class
+              header.addClass(images[classIndex]).fadeIn(2000);
+              $('.foreground').addClass('animate-foreground');
+              $('.middleground').addClass('animate-middleground');
+              $('.background').addClass('animate-background');
+          }
+
+          $.when(randomBackground()).done(function() {
+            changeBackground();
+            setInterval(changeBackground, 10000);
+          });
+
+        });
+
+<!--        $('.made-nav-mobile.menu a').click(function(e) {-->
+<!--            e.preventDefault();-->
+<!--            let anchorTarget = $(this).attr('href');-->
+<!--            $("html, body").animate({ scrollTop: $('section' + anchorTarget).offset().top}, 500);-->
+<!--          //   fireAnalyticsEvents(e);-->
+<!--        });-->
+
+<!--        $('.made-nav-desktop a').click(function(e) {-->
+<!--            e.preventDefault();-->
+<!--            let anchorTarget = $(this).attr('href');-->
+<!--            $("html, body").animate({ scrollTop: $('section' + anchorTarget).offset().top - $('#header').innerHeight() - 150}, 500);-->
+<!--          //   fireAnalyticsEvents(e);-->
+<!--        });-->
+
+
+<!--        // tiles to open modal and modal controls-->
+<!--        $('.tile').click(function (e) {-->
+<!--          e.preventDefault();-->
+
+<!--          var tileName = $(this).attr('id');-->
+<!--          $('.modal-bk').addClass('is-visible');-->
+<!--          $('#' + tileName + '-modal').addClass('is-visible');-->
+<!--          $('body').addClass('noscroll');-->
+<!--          // fireAnalyticsEvents(e);-->
+<!--        });-->
+
+<!--        $('.modal-content .close, .modal-bk').click(function (e) {-->
+<!--          e.preventDefault();-->
+<!--          $('body').removeClass('noscroll');-->
+<!--          $('.modal-content, .modal-bk').removeClass('is-visible');-->
+<!--        });-->
+
+<!--        // Carousel controls-->
+<!--        const carousel = document.querySelector("[data-target='carousel']");-->
+<!--        const card = carousel.querySelector("[data-target='card']");-->
+<!--        const leftButton = document.querySelector("[data-action='slideLeft']");-->
+<!--        const rightButton = document.querySelector("[data-action='slideRight']");-->
+
+<!--        const carouselWidth = carousel.offsetWidth;-->
+<!--        const cardStyle = card.currentStyle || window.getComputedStyle(card);-->
+<!--        const cardMarginRight = Number(cardStyle.marginRight.match(/\d+/g)[0]);-->
+
+<!--        const cardCount = carousel.querySelectorAll("[data-target='card']").length;-->
+
+<!--        let offset = 0;-->
+<!--        const maxX = -((cardCount / 1) * carouselWidth + (cardMarginRight * (cardCount / 1)) - carouselWidth - cardMarginRight);-->
+
+
+<!--        let numCards = 1;-->
+
+<!--        const mobileQuery = window.matchMedia('(min-width: 375px) and (max-width: 767px)');-->
+<!--        const tabletQuery = window.matchMedia('(min-width: 768px)');-->
+
+
+<!--      function checkCards() {-->
+<!--        if (mobileQuery.matches) {-->
+<!--          if(numCards == 1) {-->
+<!--            leftButton.setAttribute("disabled", "");-->
+<!--            rightButton.removeAttribute("disabled");-->
+<!--          } else if(numCards > 1 && numCards < 7) {-->
+<!--            leftButton.removeAttribute("disabled");-->
+<!--            rightButton.removeAttribute("disabled");-->
+<!--          } else if(numCards > 6) {-->
+<!--            rightButton.setAttribute("disabled", "");-->
+<!--          }-->
+<!--        } else {-->
+<!--          if(numCards == 1) {-->
+<!--            leftButton.setAttribute("disabled", "");-->
+<!--            rightButton.removeAttribute("disabled");-->
+<!--          } else if(numCards > 1) {-->
+<!--            leftButton.removeAttribute("disabled");-->
+<!--            rightButton.setAttribute("disabled", "");-->
+<!--          }-->
+<!--        }-->
+<!--      }-->
+
+<!--        leftButton.addEventListener("click", function () {-->
+<!--          numCards = numCards - 1;-->
+<!--          if (offset !== 0) {-->
+<!--            offset += carouselWidth + cardMarginRight;-->
+<!--            carousel.style.transform = `translateX(${offset}px)`;-->
+<!--          }-->
+<!--          checkCards();-->
+<!--        });-->
+
+<!--        rightButton.addEventListener("click", function () {-->
+<!--          numCards++;-->
+<!--          if (offset !== maxX) {-->
+<!--            offset -= carouselWidth + cardMarginRight;-->
+<!--            carousel.style.transform = `translateX(${offset}px)`;-->
+<!--          }-->
+<!--          checkCards();-->
+<!--        });-->
+
+
+<!--        const madenavbar = document.querySelector('.made-nav-desktop');-->
+
+<!--        let stickyNav = madenavbar.offsetTop;-->
+
+<!--        const madenavbarScroll = () => {-->
+<!--          if (window.pageYOffset >= stickyNav) {-->
+<!--            madenavbar.classList.add('sticky');-->
+<!--          } else {-->
+<!--            madenavbar.classList.remove('sticky');-->
+<!--          }-->
+<!--        };-->
+
+<!--        window.onscroll = madenavbarScroll;-->
+
+<!--        $(window).on('scroll', e => {-->
+<!--          $('.anchor').each(function() {-->
+
+<!--              if(this.getBoundingClientRect().top - 200 < 100) {-->
+<!--                let id = '#' + $(this).attr('id');-->
+<!--                $('.made-nav-desktop li').removeClass('active');-->
+<!--                $('.made-nav-desktop li' + id).addClass('active');-->
+<!--              }-->
+<!--            })-->
+<!--          });-->
+
+<!--        var coll = document.getElementsByClassName("closed");-->
+
+<!--        for (var i = 0; i < coll.length; i++) {-->
+<!--          coll[i].addEventListener("click", function() {-->
+<!--            this.classList.toggle("active");-->
+<!--          });-->
+<!--        }-->
+
+<!--        if (tabletQuery.matches) {-->
+
+<!--        //parallax begins-->
+<!--          var main=document.getElementById("main");-->
+<!--          function verticalParallax(){-->
+<!--              var a=window.pageYOffset;-->
+<!--              main.getBoundingClientRect().top < window.innerHeight && (main.style.backgroundPositionY=`${a/-5}px, -10%, ${a/250-16}%`,-->
+<!--              main.style.backgroundPositionX=`2vw, ${30-a/250}vw, 28vw`,-->
+<!--              main.style.backgroundSize=`${164+a/550}%, 120%, 124%`),-->
+<!--              requestAnimationFrame(verticalParallax)}-->
+<!--            requestAnimationFrame(verticalParallax);-->
+<!--          //parallax ends-->
+<!--        }-->
+
+<!--        // Open/Close the collapsible-->
+<!--        var openFormBtn = $('.emailIcon');-->
+
+<!--          $(openFormBtn).click(function (event) {-->
+<!--            event.preventDefault();-->
+
+<!--            var isCollapsibleOpen = false;-->
+<!--            $([document.documentElement, document.body]).animate({-->
+<!--                scrollTop: $("#madeFrom").offset().top - 120-->
+<!--            });-->
+
+<!--            // console.log(event.target);-->
+<!--            var interestedIn = $(event.target).closest('.story').children('h3').text();-->
+<!--            // console.log(interestedIn);-->
+
+<!--            switch(interestedIn) {-->
+<!--              case 'Audit & Assurance Stride CPA readiness program':-->
+<!--                $("#interest option[value='Audit & Assurance Stride CPA readiness program']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'Tax STRIDE (Strong Together Resiliently In Doing Exams) CPA program':-->
+<!--                $("#interest option[value='Tax STRIDE (Stronger Together Resiliently In Doing Exams) CPA program']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'Deloitte Academy: Accounting Edition program':-->
+<!--                $("#interest option[value='Deloitte Academy Accounting Edition program']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'Climb Fellowship program':-->
+<!--                $("#interest option[value='Climb Fellowship program']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'MADE Working Group':-->
+<!--                $("#interest option[value='MADE working group']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'Deloitte Foundation Accounting Scholars program':-->
+<!--                $("#interest option[value='Deloitte Foundation Accounting Scholars program']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'Strategic Support for Historically Black Colleges and Universities (HBCUs) and Hispanic-Serving Institutions (HSIs)':-->
+<!--                $("#interest option[value='Strategic Support for HBCUs and HSIs']").prop('selected', true);-->
+<!--                break;-->
+<!--              case 'Thurgood Marshall College Fund/Deloitte Foundation HBCU Accounting Scholarship Program':-->
+<!--                $("#interest option[value='Thurgood Marshall College Fund']").prop('selected', true);-->
+<!--                break;-->
+<!--              default:-->
+<!--                console.log('borked')-->
+<!--            }-->
+
+<!--            $("#collapsible-madeFrom").slideToggle(250);-->
+<!--            // scroll the content into view-->
+<!--            if (!isCollapsibleOpen) {-->
+<!--                var buttonOffset = $("#collapsible-button-madeFrom").offset();-->
+<!--                $("#close-madeFrom").addClass("opened");-->
+<!--            } else {-->
+<!--                $("#close-madeFrom").removeClass("opened");-->
+<!--            }-->
+<!--            isCollapsibleOpen = !isCollapsibleOpen;-->
+<!--          });-->
+
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(
+            function() {
+                var slider = new XPRO.Controls.Slider(null);
+                slider.initSlider("scroller", {
+                    "mode": "fade",
+                    "iniWidth": 1200,
+                    "iniHeight": 900,
+                    "autoRun": false,
+                    "interval": 15000,
+                    "autoHeightMode": "maintainratio",
+                    "thumbnails": {
+                        "navigation": false,
+                        "thumb_type": "bullet"
+                    },
+                    "stopOnHover": true,
+                    "imageVAlign": "bottom",
+                    "showProgress": true
+                });
+
+                jQuery(".layer-action-link").on("click", function() {
+                    slider.forward();
+                    return false;
+                });
+
+            }
+        );
+    </script>
+
+    <style>
+
+    /* BLP FULL WIDTH */
+    .branded-landing-page-content { max-width: 100%; margin: 60px auto; background-color: #FFF; }
+    .aem-Grid.aem-Grid--default--12 > .aem-GridColumn.aem-GridColumn--default--12 { padding: 0; margin-bottom: 0;}
+
+    #container-madeContactForm #main-title-madeContactForm.title { font-size: 2.25em; }
+    label[for="consentTypeMostRecent1"], label[for="tos"] { font-weight: normal; }
+
+    * { scroll-behavior: smooth; }
+
+    .noscroll { overflow: hidden !important; }
+
+    @font-face { font-family: 'GothamBook'; src: url('..//shared/misc/GothamBook.ttf') format('truetype'); }
+
+    /* Keyframes */
+    @keyframes foreground {
+      0% { opacity: 0; transform: translate3d(0, 0, 0); }
+      100% { opacity: 1; transform: translate3d(0, 30px, 0); }
+    }
+
+    @keyframes fadein {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes moveUp {
+      0% { transform: translate3d(0, 30px, 0); opacity: 0; }
+      100% { transform: translate3d(0, 0, 0); opacity: 1; }
+    }
+
+    @keyframes scaler {
+      100% { transform: scale3d(1, 1, 1); opacity: 1; }
+    }
+
+    #contactform form .form_row { color: white; }
+    #contactform #container-madeContactForm { margin-bottom: 0; }
+
+    #madeHub { overflow: hidden; position: relative; }
+      #madeHub header, #madeHub header::before { height: 100vh; min-height: 885px; padding: 0 0 2.5em 0; }
+      #madeHub header { z-index: 2; margin: 0;  overflow: hidden; background-position: center top; background-repeat: no-repeat; position: relative; background-size: cover; }
+      #madeHub header::before { position: absolute; width: 100vw; content: ''; background: rgba(0, 0, 0, .5); z-index: 5;}
+
+      #madeHub header.glory-header { background-image: url(../images//glory-background-mobile.jpg); }
+      #madeHub header.thalia-header { background-image: url(../images//thalia-background-mobile.jpg); }
+      #madeHub header.peter-header { background-image: url(../images//peter-background-mobile.jpg); }
+      #madeHub header.nataly-header { background-image: url(../images//nataly-background-mobile.jpg); }
+      #madeHub header.adriana-header { background-image: url(../images//adriana-background-mobile.jpg); }
+      #madeHub header.britney-header { background-image: url(../images//britney-background-mobile.jpg); }
+
+      #madeHub .header-content { position: absolute; top: 260px; left: 50%; transform: translateX(-50%); z-index: 5; width: 100%; opacity: 0; animation: fadein 1s ease 2s forwards; }
+      #madeHub .header-caption { position: absolute; font-size: 18px; font-weight: 400; color: #E0BE3F;  }
+      #madeHub .header-caption { display: none; }
+      #madeHub .header-caption em { display: block; font-style: italic; font-size: 16px;}
+
+      #madeHub #wordmark { max-width: 933px; width: 87%; display: block; margin: 0 auto 25px auto; }
+        #madeHub #wordmark h1 { font-family: 'GothamBook'; letter-spacing: -1px; font-size: 15px; font-size: 4vw; margin-top: 10px; color: white; }
+        #madeHub #wordmark img { width: 97%; }
+        #madeHub .intro-text .social-bar ul { display: flex; gap: 10px; width: 180px; margin: 2em 0 0 0; }
+          #madeHub .intro-text .social-bar svg { width: 35px; height: 35px; }
+
+      #madeHub .intro-text { background-color: rgba(220,221,218,.9); width: 95%; max-width: 1160px; margin: 1em auto 1em auto; padding: 18px; box-sizing: border-box; color: #212D48; }
+        #madeHub .intro-text h2 { font-size: 20px; font-weight: bold; margin-top: 0; }
+        #madeHub .intro-text p { font-size: 16px; font-weight: 400; line-height: 1.7; }
+
+      #madeHub .header-wrapper-overlay { position: absolute; z-index: 4; left:0px; top:0px; width:100%; height:100%; background-color: rgba(0, 0, 0, 0.5); opacity: 0; }
+      #madeHub .header-wrapper { width: 100vw; height: 100vh; position: relative; overflow: hidden; top: -50px; } /* subtract height of mobile nav */
+
+      #madeHub .pos { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; }
+
+      #madeHub .foreground { background-position: top center; background-repeat: no-repeat; background-size: cover; z-index: 3; opacity: 0; transform: translate3d(0,30px,0); }
+        #madeHub .animate-foreground { animation: moveUp 1.8s ease-out; animation-fill-mode: forwards; }
+        #madeHub .glory-header .foreground { background-image: url(../images//glory-motion-mobile.png); }
+        #madeHub .thalia-header .foreground { background-image: url(../images//thalia-foreground-mobile.png); background-size: cover; top: -25px; }
+        #madeHub .peter-header .foreground { background-image: url(../images//peter-foreground-mobile.png); }
+        #madeHub .nataly-header .foreground { background-image: url(../images//nataly-foreground-mobile.png); }
+        #madeHub .adriana-header .foreground { background-image: url(../images//adriana-foreground-mobile.png);  }
+        #madeHub .britney-header .foreground { background-image: url(../images//britney-foreground-mobile.png); }
+
+
+      #madeHub .middleground { top: -24px; background-position: center top; background-repeat: no-repeat; background-size: cover;  }
+        #madeHub .animate-middleground { transform: scale3d(1.1, 1.1, 1.1);opacity: 0.2; animation: scaler 1s ease-out;animation-fill-mode: forwards; }
+        #madeHub .glory-header .middleground { background-image: url(../images//connections-glow-charts-mobile.png); top: 20px; }
+        #madeHub .thalia-header .middleground { background-image: url(../images//thalia-middleground-mobile.png); }
+        #madeHub .peter-header .middleground { background-image: url(../images//peter-middleground-mobile.png); }
+        #madeHub .nataly-header .middleground { background-image: url(../images//nataly-middleground-mobile.png); top: 20px; }
+        #madeHub .adriana-header .middleground { background-image: url(../images//adriana-middleground-mobile.png); background-size: auto; }
+        #madeHub .britney-header .middleground { background-image: url(../images//britney-middleground-mobile.png); }
+
+      #madeHub .background { background-position: 0; background-repeat: no-repeat; background-size: cover; }
+        #madeHub .animate-background { transform: scale3d(1.3, 1.3, 1.3); opacity: 0.1; animation: scaler 1.2s ease-out; animation-fill-mode: forwards; }
+        #madeHub .glory-header .background { background-image: url(../images//parent-thru-clouds-mobile.png); background-position: center; }
+
+
+      #madeHub .made-nav-desktop { visibility: hidden; display: none; }
+        .top-nav { display: flex; flex-direction: row; justify-content: space-between; color: #FFF; height: 50px; padding: 1em; position: relative; z-index: 5; top: 10px; }
+        .menu { display: none; height: 0; opacity: 0; flex-direction: row; list-style-type: none; margin: 0; padding: 0; }
+          .menu > li { margin: 0 1rem; }
+        .menu-button-container { display: none; height: 100%; width: 30px; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; }
+
+      #menu-toggle { display: none; }
+        .menu-button, .menu-button::before, .menu-button::after { display: block; background-color: #fff; position: absolute; height: 2px; width: 30px; transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1); border-radius: 2px; }
+        .menu-button { right: 16px; left: auto; }
+          .menu-button::before { content: ''; margin-top: -8px; }
+          .menu-button::after { content: ''; margin-top: 8px; }
+
+      #menu-toggle:checked + .menu-button-container .menu-button::before { margin-top: 0px; transform: rotate(405deg); background-color: black;}
+      #menu-toggle:checked + .menu-button-container .menu-button { background: rgba(255, 255, 255, 0); }
+      #menu-toggle:checked + .menu-button-container .menu-button::after { margin-top: 0px; transform: rotate(-405deg); background-color: black;}
+
+    #madeHub main { position: relative; background: #8C3D40 url(../images//owning_the_accounting_profession_james_mobile.jpg) -650px 200px no-repeat; border-top: 1px solid #8C3D40; }
+
+    #madeHub #container { position: relative; padding-bottom: 1.5em; }
+
+      #madeHub .about-text { max-width: 315px; margin: 50px auto 375px auto; }
+      #madeHub .about-text h2, .about-text p { color: white; text-shadow: 0 0 5px black;}
+      #madeHub .about-text h2 { font-weight: bold; font-size: 20px; margin-top: 0; }
+      #madeHub .about-text p { font-size: 16px; font-weight: 300; line-height: 1.5; }
+
+      #madeHub .featured-stories { background-color: rgba(220,221,218,.9); padding: 30px; width: 95%; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; max-width: 350px; margin: 0 auto 50px auto; position: relative; }
+
+      #madeHub .caption { position: absolute; z-index: 4; width: 100%; max-width: 300px; left: 50%; transform: translateX(-50%); top: -150px; display: none; }
+        #madeHub .caption p { color: white; font-size: 18px; text-shadow: 0 0 5px black;}
+          #madeHub .caption p em { font-size: 16px; }
+
+      #madeHub .featured-stories h2 { color: #212D48; font-size: 2.5em; font-weight: bold; width: 100%; margin-top: 0; margin-bottom: 30px; }
+      #madeHub .carousel-wrapper { width: 275px; position: relative; overflow: hidden; margin: 0 auto; z-index: 2; }
+      #madeHub .button-wrapper { width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center; position: absolute; left: 0; z-index: 1; }
+      #madeHub .carousel { margin: 1em auto; display: flex; flex-wrap: nowrap; flex-direction: row; align-items: center; transition: all .5s ease; list-style: none; padding: 0; }
+          #madeHub .control { background: none; border: none; }
+          #madeHub .control img { width: 24px; height: 25px; }
+          #madeHub .control[disabled]:hover { cursor: default;}
+          #madeHub .control[disabled] img { opacity: .5; }
+        #madeHub .previous { margin-right: 1%; }
+        #madeHub .next { margin-left: 1%; }
+
+        #madeHub .slider-container-transition { transition: transform 0.7s ease-in-out; }
+        #madeHub .carousel .tile { display: flex; flex-direction: column; background-color: #EBEBEB; transition: all .5s; cursor: pointer; max-width: 275px; width: 100%; flex-shrink: 0; }
+          #madeHub .carousel .tile:hover { -webkit-box-shadow: 5px 5px 6px 1px rgba(0,0,0,0.56); box-shadow: 5px 5px 6px 1px rgba(0,0,0,0.56); }
+        #madeHub .carousel .tile p { text-align: center; font-size: 18px; margin-top: 1em; margin-bottom: .5em; }
+        #madeHub .carousel .tile .enlarge { width: 16px; height: auto; margin: 0 auto 1.5em auto; display: block; }
+
+        /* MODALS */
+        #madeHub .close:hover, #madeHub .modal-bk:hover { cursor: pointer; }
+          #madeHub .close:hover img { opacity: .25; }
+        #madeHub .modal-bk, #madeHub .modal-content { display: none; opacity: 0; transition: all .5s; }
+        #madeHub .modal-bk { width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, .75); position: fixed; z-index: 5; }
+        #madeHub .modal-content { position: fixed; z-index: 6; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 1000px; width: 88%; background-color: #EBEBEB; margin: auto; padding: 0; box-shadow: none; border: none; border-radius: inherit;  }
+        #madeHub .modal-content > div { width: 100%; }
+        #madeHub .modal-content > div img { display: block; width: 100%; }
+          #madeHub .modal-content div:nth-of-type(2) { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1em;}
+          #madeHub .modal-content .close img { width: 34px; height: 34px; position: absolute; top: 10px; right: 10px; left: auto; }
+          #madeHub .modal-content p { font-size: 14px; margin-bottom: 1em; width: 100%; max-width: 317px; text-align: left; }
+            #madeHub .modal-content .name { width: 100%; text-align: left; font-size: 18px; display: block; }
+
+            #madeHub .is-visible { animation: fadein .5s ease-in; opacity: 1; }
+              #madeHub .modal-bk.is-visible { display: block; top: 0; }
+              #madeHub .modal-content.is-visible { display: flex; flex-wrap: wrap; }
+
+        #madeHub .stories { margin: 0 auto 50px auto; padding: 30px; background-color: rgba(220,221,218,.9); }
+          #madeHub .stories-header { padding: 0 30px 30px 30px; color: #1D1F3F;  }
+            #madeHub .stories-header h2 { font-size: 2.5em; font-weight: bold; }
+          #madeHub .story { background-color: rgba(220,221,218,.7); padding: 30px; box-sizing: border-box; position: relative;  flex-direction: column; transition: max-height 1s ease-out;}
+            #madeHub .story.closed { display: flex; max-height: 225px; overflow: hidden; }
+              #madeHub .story.closed h4, #madeHub .story.closed p, #madeHub .story.closed .btn, #madeHub .story.closed .next-actions { display: none; visibility: hidden; opacity: 0; transition: opacity 1s ease-out; }
+          #madeHub .story + .story { margin-top: 1em; }
+          #madeHub .story h3 { font-weight: bold; font-size: 20px; color: #212D48; margin-top: 0; margin-bottom: 0; width: 90%; position: relative; }
+            #madeHub .story.closed h3:after { content: '+'; opacity: .8; font-size: 25px; color: white; display: block; position: absolute; top: 50%; right: -17%; left: auto; padding-top: 2px; padding-bottom: 2px; transform: translateY(-50%); text-align: center; width: 30px; border-radius: 30px; background-color: #707070;}
+
+            #madeHub .story.active { max-height: 800px; }
+            #madeHub .story.active h4, #madeHub .story.active p, #madeHub .story.active .btn, #madeHub .story.active .next-actions { display: block; visibility: visible; opacity: 1; }
+              #madeHub .story.active .next-actions { display: flex; }
+            #madeHub .story.active h3:after { content: "\2796";  }
+
+          #madeHub .story h4.category {font-size: 18px; font-weight: 500; color: #158A9F; margin-top: 1em; margin-bottom: 1em; }
+          #madeHub .story p {font-size: 16px; line-height: 1.5; color: #212D48; }
+          #madeHub .story .btn { max-width: 128px; background-color: #707070; color: white; padding: 10px 15px; border: none; margin: 2em auto 0 auto; display: block; font-size: 18px; text-align: center; text-decoration: none; }
+
+          #madeHub .next-actions { margin-top: 1rem; height: 100%; display: flex; gap: 25px; align-items: end; justify-content: center;}
+            #madeHub .icons { flex: 1; max-width: 127px; }
+            #madeHub .icons:hover { cursor: pointer; }
+            #madeHub .icons:hover .cls-1, #madeHub .icons:hover .cls-2, #madeHub .icons:hover .cls-3, #madeHub .icons:hover #watchHere .st3, #madeHub .icons:hover .st0, #madeHub .icons:hover .st1 { fill: #1B8BA0; }
+            #madeHub .icons:hover #watchHere .st0, #madeHub .icons:hover #watchHere .st1 { stroke: #1B8BA0; }
+
+          #madeHub .in-the-news { background-color: rgba(220,221,218,.9); padding: 30px; width: 100%; max-width: 360px; margin: 0 auto 50px auto; box-sizing: border-box; }
+            #madeHub .in-the-news h2 { font-weight: bold; font-size: 2.5em; color: #212D48; margin-top: 0; }
+          #madeHub .news-stories { display: flex; flex-direction: column; row-gap: 40px; width: 100%; }
+            #madeHub .news-stories article { max-width: 350px; width: 100%; }
+            #madeHub .news-stories article .date, .news-stories article h4, .news-stories article a { font-size: 18px;}
+              .news-stories article a:hover { color: #1B8BA0; }
+            #madeHub .news-stories article h4, .news-stories article p { margin-top: 0; margin-bottom: 0; color: #212D48}
+            #madeHub .more-stories { text-align: center; font-size: 18px; margin: 1.5em auto; }
+              #madeHub .more-stories a { color: black; }
+
+              #madeHub .get-in-touch { background-color: rgba(220,221,218,.9); padding: 30px; width: 100vw; margin: 0 auto 50px auto; box-sizing: border-box; }
+                #madeHub .get-in-touch h2 { font-weight: bold; font-size: 2.5em; color: #212D48; padding: 0 0 30px 0; }
+                #madeHub .get-in-touch .profiles { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; row-gap: 40px; }
+                #madeHub .get-in-touch .profile { flex-direction: column; }
+                  #madeHub .get-in-touch .profile p { font-size: 20px; margin-bottom: 0; color: #212D48; line-height: 1.2; width: 70%; }
+                  #madeHub .get-in-touch .profile p + p { margin-top: 0; margin-bottom: 1em; }
+                  #madeHub .get-in-touch .profile a { text-decoration: none; font-weight: bold; color: #8C3D40; }
+                    #madeHub .get-in-touch .profile a:hover { text-decoration: underline; color: #8C3D40; }
+                #madeHub .get-in-touch .cta { font-size: 20px; font-weight: bold; text-align: center; margin-top: 50px; }
+                  #madeHub .get-in-touch .cta a { color: #8c3d40; text-decoration: none; display: block; }
+                  #madeHub .get-in-touch .profile p.title, #madeHub .get-in-touch .profile p.email { font-size: 16px; }
+                  #madeHub .get-in-touch .profile p.email { width: 100%; }
+                  #madeHub .get-in-touch .profile .social svg { width: 40px; }
+
+          #madeHub .footer { padding: 1.5em; }
+            #madeHub .leaders { box-sizing: border-box; margin-bottom: 50px; }
+              #madeHub .leaders h3 { font-weight: bold; font-size: 30px; color: white; margin-top: 0; }
+              #madeHub .leaders .profiles { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; row-gap: 40px; }
+              #madeHub .leaders .profile { flex-direction: column; }
+              #madeHub .leaders img { max-width: 231px; }
+              #madeHub .leaders .info { color: white; }
+              #madeHub .leaders .name { font-weight: bold; }
+                #madeHub .leaders p { margin-bottom: 0; line-height: 1.5; }
+                #madeHub .leaders p + p { margin-top: 0; }
+                #madeHub .leaders a { text-decoration: none; color: white; display: block; }
+                #madeHub .leaders .phone { margin-top: 1em; }
+
+          #madeHub .fade-out { animation: fade-out 1s ease-out both; }
+
+      @media (max-width: 700px) {
+        .menu-button-container { display: flex; z-index: 5; }
+        .menu { position: absolute; top: 0; left: 0; flex-direction: column; width: 100%; justify-content: center; align-items: center; }
+        #menu-toggle ~ .menu li { height: 0; margin: 0; padding: 0; border: 0; transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1); }
+        #menu-toggle:checked ~ .menu { display: flex; opacity: 1; height: auto; transition: all .5s; }
+        #menu-toggle:checked ~ .menu li { height: 1.5em; padding: 1em 0; transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1); }
+        .menu > li { display: flex; align-items: center; margin: 0; padding: 0.5em 0; width: 100%; color: black; background-color: #DCDDDA; font-size: 20px; font-weight: 800; text-transform: uppercase; }
+        .menu > li a { color: black; text-decoration: none; padding-left: 5%; }
+        .menu > li:not(:last-child) { border-bottom: 1px solid #444; }
+      }
+
+      @media (min-width: 768px) {
+        #madeHub .header-content { top: 325px; width: 90%; }
+        #madeHub .header-caption { top: -300px; left: 73%;  }
+        #madeHub #wordmark h1 { font-size: 30px; font-size: 3.4vw; }
+        #madeHub .intro-text h2 { font-size: 30px; }
+        #madeHub main { background-position: -300px 200px; }
+        #madeHub .about-text { max-width: 50%; margin-bottom: 350px; margin-left: 10%; }
+        #madeHub .about-text h3 { font-size: 30px; }
+        #madeHub .about-text p { font-size: 16px; }
+        #madeHub .featured-stories { max-width: none; }
+        #madeHub .caption { top: -200px; }
+        #madeHub .carousel-wrapper { width: 95%; }
+        #madeHub .carousel { gap: 8px; }
+          #madeHub .carousel .tile { max-width: 153px; }
+        #madeHub .stories { max-width: 95%; }
+          #madeHub .stories .wrapper { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; row-gap: 40px; width: 100%; }
+          #madeHub .story + .story { margin-top: 0; }
+          #madeHub .story.closed { max-height: 800px; max-width: 50%; flex-direction: column; flex-basis: 48%; }
+          #madeHub .story.closed h3:after { content: ''; padding: 0; }
+            #madeHub .story.closed h4, #madeHub .story.closed p, #madeHub .story.closed .btn, #madeHub .story.closed .next-actions { display: block; visibility: visible; opacity: 1; }
+              #madeHub .story.closed .next-actions { display: flex; }
+        #madeHub .in-the-news { max-width: 95%; }
+          #madeHub .news-stories { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; row-gap: 40px; width: 100%; flex-direction: row; }
+          #madeHub .news-stories article { max-width: 50%; flex-direction: column; flex-basis: 48%; }
+          #madeHub .get-in-touch .profile, #madeHub .leaders .profile { max-width: 31%; flex-direction: column; flex-basis: 48%; }
+
+      }
+
+      @media (min-width: 820px) {
+        #madeHub .header-content { top: 350px; width: 80%; }
+
+        #madeHub header .header-captions { visibility: hidden; }
+        #madeHub header.glory-header .header-captions .glory-caption { display: block; }
+        #madeHub header.thalia-header .header-captions .thalia-caption { display: block; }
+        #madeHub header.peter-header .header-captions .peter-caption { display: block; }
+        #madeHub header.nataly-header .header-captions .nataly-caption { display: block; }
+        #madeHub header.adriana-header .header-captions .adriana-caption { display: block; }
+        #madeHub header.britney-header .header-captions .britney-caption { display: block; }
+
+        #madeHub #wordmark h1 { font-size: 17px; font-size: 3.4vw; }
+
+        #madeHub .carousel .tile { max-width: 221px; }
+      }
+
+      @media (min-width: 1024px) {
+
+        #madeHub header { background-position: center 0; width: 100vw; background-size: cover; padding-bottom: 100px;}
+          #madeHub header, #madeHub header:before { min-height: 1024px; }
+
+          #madeHub header.glory-header { background-image: url(../images//glory-background.jpg); }
+          #madeHub header.thalia-header { background-image: url(../images//thalia-background.jpg); }
+          #madeHub header.peter-header { background-image: url(../images//peter-background.jpg); }
+          #madeHub header.nataly-header { background-image: url(../images//nataly-background.jpg); }
+          #madeHub header.adriana-header { background-image: url(../images//adriana-background.jpg); }
+          #madeHub header.britney-header { background-image: url(../images//britney-background.jpg); }
+
+          #madeHub .glory-header .foreground { background-image: url(../images//glory-motion.png); }
+          #madeHub .thalia-header .foreground { background-image: url(../images//thalia-foreground.png); background-size: cover; top: -25px; }
+          #madeHub .peter-header .foreground { background-image: url(../images//peter-foreground.png); }
+          #madeHub .nataly-header .foreground { background-image: url(../images//nataly-foreground.png); }
+          #madeHub .adriana-header .foreground { background-image: url(../images//adriana-foreground.png);  }
+          #madeHub .britney-header .foreground { background-image: url(../images//britney-foreground.png); }
+
+          #madeHub .middleground { top: -24px; background-position: center top; background-repeat: no-repeat; background-size: cover;  }
+          #madeHub .animate-middleground { transform: scale3d(1.1, 1.1, 1.1);opacity: 0.2; animation: scaler 1s ease-out;animation-fill-mode: forwards; }
+          #madeHub .glory-header .middleground { background-image: url(../images//connections-glow-charts.png); top: 20px; }
+          #madeHub .thalia-header .middleground { background-image: url(../images//thalia-middleground.png); }
+          #madeHub .peter-header .middleground { background-image: url(../images//peter-middleground.png); }
+          #madeHub .nataly-header .middleground { background-image: url(../images//nataly-middleground.png); top: 20px; }
+          #madeHub .adriana-header .middleground { background-image: url(../images//adriana-middleground.png); background-size: auto; }
+          #madeHub .britney-header .middleground { background-image: url(../images//britney-middleground.png); }
+
+          #madeHub .glory-header .background { background-image: url(../images//parent-thru-clouds.png); background-position: center; }
+
+          #madeHub .header-wrapper { top: 0; }
+
+          #madeHub .foreground, #madeHub .middleground { top: 0 !important; }
+
+          #madeHub header.glory-header { background-size: 100%; }
+          #madeHub header.britney-header, #madeHub .britney-header .foreground, #madeHub .britney-header .middleground { background-size: 100%; }
+          /* #madeHub .nataly-header .foreground { background-image: url(../images//nataly-foreground.png); top: -46px; background-size: 375%; } */
+
+          #madeHub .anchor { scroll-margin-top: 200px; scroll-snap-margin-top: 200px; }
+
+          #madeHub .header-content { top: 280px; width: 100%; }
+          #madeHub header .header-captions { visibility: visible; }
+          #madeHub header .header-caption { top: -150px; left: 70%;  }
+
+          #madeHub #wordmark { max-width: 605px; margin: 60px auto 20px auto; }
+          #madeHub #wordmark img { display: block; width: auto; }
+          #madeHub #wordmark h1 { font-size: 39px; font-size: 3vw; color: white; font-weight: 300; margin-top: 30px; letter-spacing: -1px; margin-bottom: 0; }
+
+          #madeHub .intro-text { max-width: 1160px; margin: 0 auto 3em auto; padding: 50px 75px;  }
+              #madeHub .intro-text h2 { font-size: 30px; font-weight: bold; }
+              #madeHub .intro-text p { font-size: 16px; font-weight: 400; line-height: 1.7; margin-bottom: 0; }
+
+          #madeHub .header-wrapper-overlay { position: absolute; z-index: 4; left:0px; top:0px; width:100%; height:100%; background-color: rgba(0, 0, 0, 0.5); opacity: 0; }
+          #madeHub .header-wrapper { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+
+          #madeHub .pos { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; }
+
+          #madeHub .glory { background-size: cover; left: 0;  }
+          #madeHub .glory-bk1 { background-position: center top; top: 0; }
+          #madeHub .glory-bk2 { background-position: center center; background-size: cover; }
+
+          #madeHub .top-nav { visibility: hidden; display: none; }
+          #madeHub .made-nav-desktop { visibility: visible; display: block; }
+          #madeHub .made-nav-desktop.sticky { position: fixed; top: 70px; height: 60px; padding-top: 8px; padding-bottom: 5px; background-color: rgba(220,221,218,1);  }
+
+
+          #madeHub .made-nav-desktop { position: absolute; z-index: 5; bottom: 0; width: 100%; padding: 1em 0; background-color: rgba(220,221,218,.9); }
+            #madeHub .made-nav-desktop ul { display: flex; flex-wrap: wrap; flex-direction: row; align-items: center; max-width: 1160px; margin: 0 auto 0 auto; }
+              #madeHub .made-nav-desktop li { font-size: 20px; font-weight: 800; text-transform: uppercase; list-style: none; flex-grow: 1; flex-basis: auto; padding: 0 1em; margin-bottom: 0; border-left: 1px solid #212D48; text-align: center; }
+              #madeHub .made-nav-desktop li:first-of-type { border: none; }
+                #madeHub .made-nav-desktop a { color: #212D48; text-decoration: none; display: block; padding: 5px; }
+              #madeHub .made-nav-desktop a:hover { text-decoration: underline; }
+              #madeHub .made-nav-desktop .active a { color: #1B8BA0 }
+              #madeHub main:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .5); }
+
+          #madeHub main { position: relative; background-color: #8C3D40; background-image: url(../images//made-james-shelton-foreground.png), url(../images//made-james-shelton-middleground.png), url(../images//made-james-shelton-background.png); background-position-y: 0; }
+            #madeHub .about-text {  position: relative; margin: 3.5rem auto 200px 170px; max-width: 45%;}
+
+            #madeHub .caption { left: 57%; top: -145px; z-index: 1;}
+            #madeHub .carousel { gap: 15px; }
+            #madeHub .carousel .tile { max-width: 212px; }
+
+                #madeHub .modal-content { width: 80%; max-height: 500px; }
+                #madeHub .modal-content > div { flex: 1; position: relative; }
+
+              #madeHub .news-stories { gap: 40px; row-gap: 40px; }
+              #madeHub .news-stories article { flex-basis: 46%; }
+
+              #madeHub .get-in-touch, #madeHub .leaders { max-width: 95%; margin: 0 auto 50px auto; box-sizing: border-box; }
+                #madeHub .get-in-touch .wrapper { display: flex; width: 100%; }
+              #madeHub .get-in-touch .profiles { width: 100%; }
+                #madeHub .get-in-touch p { max-width: 90%; }
+              #madeHub .profile img { width: 100%; max-width: 231px; }
+              #madeHub .get-in-touch .cta { width: 40%;}
+
+
+
+              #madeHub .leaders { padding: 1.5em 0; }
+      }
+
+      @media (min-width: 1230px) {
+        #madeHub .carousel .tile { max-width: 23.7%; }
+      }
+
+      @media (min-width: 1263px) and (min-height: 577px) {
+        /* #madeHub header, #madeHub header:before { min-height: 1048px; } */
+        #madeHub .thalia-header .middleground { background-size: 125%; }
+        #madeHub #wordmark { max-width: 870px; width: 60%; margin: 30px auto 25px auto; }
+        #madeHub #wordmark img { width: 70%; margin: 0 auto; }
+        #madeHub #wordmark h1 { font-size: 28px; font-size: 2.2vw; text-align: center; }
+        #madeHub .modal-content { width: 70%; }
+      }
+
+      @media (min-width: 1280px) {
+        /* #madeHub header, #madeHub header:before { min-height: initial; } */
+        #madeHub .thalia-header .middleground { background-size: 100%; }
+        #madeHub .intro-text { padding: 50px 100px; }
+        #madeHub .header-content, #madeHub main #container { max-width: 1280px;}
+        #madeHub .header-caption br:nth-of-type(2) { display: none; }
+        #madeHub main #container { margin: 0 auto; }
+        #madeHub main { background-position-x: -100px;}
+        #madeHub .caption { left: 65%; display: block; }
+        #madeHub .featured-stories, #madeHub .stories, #madeHub .in-the-news, #madeHub .get-in-touch, #madeHub .leaders { max-width: 970px; }
+        #madeHub .carousel .tile { max-width: 23.6%; }
+      }
+
+      @media (min-width: 1366px) {
+        #madeHub #wordmark { margin-top: 100px; }
+        #madeHub #wordmark h1 { font-size: 28px; font-size: 2vw; }
+        #madeHub main { background-position-x: 0;}
+        #madeHub .caption { left: 112%; top: 0; max-width: 200px; }
+        #madeHub .caption p { font-size: 16px; }
+        #madeHub .caption p em { font-size: 14px; }
+      }
+
+      @media (min-width: 1400px) {
+        #madeHub #wordmark h1 { font-size: 28px; }
+      }
+
+  </style>
+
+</head>
+
+<body>
+
+    <div class="xpro-header-section">
+        <div class="container">
+
+            <div class="xpro-header">
+                <div class="xpro-header-title">
+                    <h1 class="xpro-logo"><span>slider</span></h1>
+                    <div class="xpro-tagline">Versatile Responsive Slider</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="xpro-slider-container" id="madeHub">
+        <div id="scroller" class="xpro-slider">
+            <div class="xpro-slider-content">
+
+                <div class="xpro-slider-item">
+<!--                    <div class="slider_image_1" ></div>-->
+                    <header class="glory-header">
+                        <section class="header-content">
+
+                            <section class="header-captions">
+
+                                <p class="header-caption glory-caption">Glory Emmanuel
+                                    <em>Audit &amp; Assurance Senior<br>
+                                        Deloitte &amp; Touche LLP,<br> San Francisco Bay Area</em>
+                                </p>
+
+                                <p class="header-caption adriana-caption">Adriana Contreras
+                                    <em>Tax Senior Manager<br>
+                                        Deloitte Tax LLP,<br> Portland</em>
+                                </p>
+
+                                <p class="header-caption britney-caption">Britney Sullivan
+                                    <em>Tax Senior<br>
+                                        Deloitte Tax LLP,<br> Houston</em>
+                                </p>
+
+                                <p class="header-caption thalia-caption">Thalia Smith
+                                    <em>Audit &amp; Assurance Partner<br>
+                                        Deloitte &amp; Touche LLP,<br> New York</em>
+                                </p>
+
+                                <p class="header-caption nataly-caption">Nataly Santana
+                                    <em>Audit &amp; Assurance Senior Manager<br>
+                                        Deloitte &amp; Touche LLP,<br> New York</em>
+                                </p>
+
+                                <p class="header-caption peter-caption">Peter Velez
+                                    <em>Audit &amp; Assurance Manager<br>
+                                        Deloitte &amp; Touche LLP,<br> Los Angeles</em>
+                                </p>
+
+                            </section><!-- /header-captions-->
+
+                            <div id="wordmark">
+                                <img src="../images/made-wordmark.svg" alt="MADE">
+                                <h1>Making Accounting Diverse and Equitable</h1>
+                            </div>
+
+                            <section class="intro-text">
+                                <h2>Fueling greater racial and ethnic diversity in accounting and tax</h2>
+                                <p>Deloitte is committed to generate more advisory, auditing, and tax career opportunities and leadership pathways for the next generation of certified public accountants (CPAs). MADE—Making Accounting Diverse and Equitable—represents a bold vision for the accounting profession, both in terms of increasing racial and ethnic diversity, and helping students of color see and realize their future in business through the prism and possibilities of accounting. </p>
+                                <div class="social-bar">
+                                    <ul>
+                                        <li>
+                                            <a onclick="launchShare('linkedin');" title="share on linkedin" href="#" data-provider="linkedin" class="social" id="linkedIn">
+                                                <svg version="1.1" title="share on linkedin" id="linkedin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+                  <style type="text/css">
+                    #linkedin .st0{fill:#212D48;}
+                    #linkedin .st1{clip-path:url(#SVGID_00000013195431955558499990000003192727502345411775_);}
+                  </style>
+                                                    <path id="Path_674" class="st0" d="M9.5,25.1H12v-9H9.5V25.1z"></path>
+                                                    <g>
+                    <defs>
+                      <rect id="SVGID_1_" width="35" height="35"></rect>
+                    </defs>
+                                                        <clipPath id="SVGID_00000020359883676161294270000006716190995284532615_">
+                      <use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
+                    </clipPath>
+                                                        <g id="Group_79" style="clip-path:url(#SVGID_00000020359883676161294270000006716190995284532615_);">
+                      <g id="Group_76" transform="translate(15.778 15.212)">
+                        <path id="Path_675" class="st0" d="M6.1,0c-2,0-2.6,0.3-2.9,0.9C3.1,1.2,2.8,1.3,2.5,1.2C2.2,1.2,2.1,0.9,2.1,0.6V0H0v10.4h2.2
+                          V4.9c0-1,0-3.3,2.8-3.3C7.6,1.6,7.6,4,7.6,5v5.4h2.3c0-2.9,0-7,0-7.4C9.5,0.9,8.5,0,6.1,0"></path>
+                      </g>
+                                                            <g id="Group_77" transform="translate(9.388 9.402)">
+                        <path id="Path_676" class="st0" d="M1.4,0C1,0,0.6,0.2,0.3,0.5C0,0.9-0.1,1.3,0,1.7c0.1,0.5,0.5,0.9,1.1,1.1
+                          c0.4,0.1,0.9,0,1.2-0.3c0.3-0.3,0.5-0.7,0.5-1.1C2.8,0.6,2.2,0,1.4,0"></path>
+                      </g>
+                                                            <g id="Group_78" transform="translate(0 0)">
+                        <path id="Path_677" class="st0" d="M17.5,0C7.8,0,0,7.8,0,17.5l0,0C0,27.2,7.8,35,17.5,35l0,0C27.2,35,35,27.2,35,17.5
+                          S27.2,0,17.5,0 M13.5,26.2c0,0.3-0.3,0.6-0.6,0.6l0,0H8.8c-0.3,0-0.6-0.3-0.6-0.6c0,0,0,0,0,0V14.6c0-0.3,0.3-0.6,0.6-0.6l0,0
+                          h4.1c0.3,0,0.6,0.3,0.6,0.6L13.5,26.2z M12.5,12.9c-0.5,0.4-1.1,0.6-1.7,0.6c-0.2,0-0.4,0-0.5-0.1c-1-0.2-1.8-1-2-2
+                          c-0.2-0.8,0-1.6,0.5-2.2c0.5-0.6,1.3-1,2.1-1c1.5,0,2.6,1.2,2.6,2.7C13.5,11.6,13.1,12.4,12.5,12.9 M26.8,26.2
+                          c0,0.3-0.3,0.6-0.6,0.6h-3.5c-0.3,0-0.6-0.3-0.6-0.6l0,0v-6c0-1.7-0.3-2.1-1.4-2.1c-1.2,0-1.5,0.4-1.5,2v6.1
+                          c0,0.3-0.3,0.6-0.6,0.6l0,0h-3.4c-0.3,0-0.6-0.3-0.6-0.6l0,0V14.6c0-0.3,0.3-0.6,0.6-0.6h3.3c0.3,0,0.5,0.2,0.6,0.4
+                          c0.9-0.4,1.9-0.5,2.8-0.4c3,0,4.6,1.3,4.9,4.1C26.9,18.6,26.8,25,26.8,26.2"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onclick="launchShare('twitter');" title="share on twitter" href="#" data-provider="twitter" class="social" id="twitter">
+                                                <svg version="1.1" title="share on twitter" id="twitter" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+                  <style type="text/css">
+                    #twitter .st0{clip-path:url(#SVGID_00000005234305812376800210000012294101680689535896_);}
+                    #twitter .st1{fill:#212D48;}
+                  </style>
+                                                    <g>
+                    <defs>
+                      <rect id="SVGID_1_" width="35" height="35"></rect>
+                    </defs>
+                                                        <clipPath id="SVGID_00000086663824857319205860000016632336589037453450_">
+                      <use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
+                    </clipPath>
+                                                        <g id="Group_83" style="clip-path:url(#SVGID_00000086663824857319205860000016632336589037453450_);">
+                      <g id="Group_81" transform="translate(8.226 9.5)">
+                        <path id="Path_679" class="st1" d="M17.5,2.4c-0.2-0.2-0.2-0.5-0.1-0.7L17.8,1l-0.5,0.2c-0.7,0.3-1.5,0.2-2.1-0.2
+                          c-0.4-0.2-0.8-0.4-1.2-0.6c-0.2-0.1-0.4-0.2-0.6-0.2c-0.9-0.3-1.8-0.1-2.5,0.4c-1,0.8-1.6,2-1.6,3.2l0,1C9.1,4.9,9,5,8.9,5.2
+                          C8.8,5.3,8.6,5.3,8.5,5.3c-3.1-0.2-6.1-1.7-8.2-4c-0.5,1-0.3,2.4,0.8,4.1c0.1,0.2,0.1,0.5,0,0.7C0.9,6.3,0.6,6.4,0.4,6.4L0.1,6.3
+                          c0.2,1.2,1,2.3,2.1,2.9c0.2,0.2,0.3,0.4,0.2,0.7c-0.1,0.3-0.3,0.4-0.6,0.4H1.7c0.6,1.1,1.6,1.8,2.7,2.1c0.2,0.1,0.4,0.2,0.4,0.5
+                          c0,0.2,0,0.5-0.2,0.6c-0.9,0.7-2,1.2-3.1,1.4c-0.4,0.1-0.7,0.1-1.1,0.1c1.7,0.8,3.6,1.1,5.5,1c6-0.3,10.7-5.2,10.8-11.1
+                          c0-0.7,0.3-1.4,0.9-1.8c0.1-0.1,0.3-0.3,0.4-0.4C17.8,2.7,17.6,2.6,17.5,2.4"></path>
+                      </g>
+                                                            <g id="Group_82" transform="translate(0 0)">
+                        <path id="Path_680" class="st1" d="M17.5,0C7.8,0,0,7.8,0,17.5l0,0C0,27.2,7.8,35,17.5,35l0,0C27.2,35,35,27.2,35,17.5
+                          S27.2,0,17.5,0 M28.2,11.7c-0.1,0.2-0.3,0.3-0.4,0.5c-0.3,0.4-0.7,0.8-1.1,1.2c-0.3,0.2-0.5,0.6-0.5,1c-0.2,6.6-5.4,12-12,12.3
+                          c-0.2,0-0.5,0-0.7,0c-2.1,0-4.2-0.5-6.1-1.5c-0.2-0.1-0.4-0.3-0.5-0.5c0,0-0.1-0.1-0.1-0.1c-0.1-0.1-0.2-0.4-0.1-0.5
+                          c0-0.2,0.2-0.4,0.4-0.4c0.1,0,0.1,0,0.2-0.1c0.2-0.1,0.4-0.2,0.6-0.2c0.3,0,0.5-0.1,0.8-0.1c0.3,0,0.6-0.1,1-0.1
+                          c0.6-0.1,1.1-0.3,1.6-0.5c-1.3-0.6-2.3-1.8-2.7-3.2c0-0.2,0-0.4,0.1-0.5l0,0c-1.1-1-1.7-2.4-1.5-3.9c0-0.2,0.1-0.4,0.3-0.5
+                          c0.1-0.1,0.2-0.1,0.2-0.1c-1.1-2.5-0.4-4,0.4-5c0.1-0.1,0.3-0.2,0.5-0.2c0.2,0,0.3,0.1,0.5,0.2c1.8,2.2,4.4,3.7,7.2,4.1l0-0.3
+                          C16.3,11.5,17,10,18.3,9c1-0.7,2.4-1,3.6-0.6c0,0,0.1,0,0.1,0c0.2,0.1,0.4,0.2,0.6,0.2c0.5,0.2,1,0.4,1.5,0.7
+                          c0.3,0.2,0.6,0.3,0.9,0.1c0.4-0.2,0.8-0.3,1.2-0.5l0.6-0.2c0.2-0.1,0.5,0,0.7,0.1l0.2,0.2c0.2,0.2,0.2,0.5,0.1,0.7l-0.3,0.6
+                          c0.3-0.1,0.5,0,0.7,0.2l0.2,0.2C28.4,11.2,28.4,11.5,28.2,11.7"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onclick="launchShare('facebook');" title="share on facebook" href="#" data-provider="facebook" class="social" id="facebook">
+                                                <svg version="1.1" title="share on facebook" id="facebook" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+                  <style type="text/css">
+                    #facebook .st0{clip-path:url(#SVGID_00000162343077865543690890000001250566421560234414_);}
+                    #facebook .st1{fill:#212D48;}
+                  </style>
+                                                    <g>
+                    <defs>
+                      <rect id="SVGID_1_" width="35" height="35"></rect>
+                    </defs>
+                                                        <clipPath id="SVGID_00000075876780207649393670000017133269497314389425_">
+                      <use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
+                    </clipPath>
+                                                        <g id="Group_87" style="clip-path:url(#SVGID_00000075876780207649393670000017133269497314389425_);">
+                      <g id="Group_85" transform="translate(13.292 7.778)">
+                        <path id="Path_682" class="st1" d="M5.1,5.6V3.9C5.1,3.1,5.7,2.4,6.5,2.3c0.1,0,0.1,0,0.2,0h1.7V0L5.8,0C3.9-0.2,2.2,1.2,2.1,3.1
+                          c0,0.2,0,0.4,0,0.6v1.9c0,0.3-0.3,0.6-0.6,0.6c0,0,0,0,0,0H0v2.9h1.5c0.3,0,0.6,0.3,0.6,0.6c0,0,0,0,0,0v9.7H5V9.7
+                          c0-0.3,0.3-0.6,0.6-0.6c0,0,0,0,0,0h2.5l0.3-2.9H5.7C5.4,6.2,5.1,5.9,5.1,5.6"></path>
+                      </g>
+                                                            <g id="Group_86" transform="translate(0 0)">
+                        <path id="Path_683" class="st1" d="M17.5,0C7.8,0,0,7.8,0,17.5l0,0C0,27.2,7.8,35,17.5,35l0,0C27.2,35,35,27.2,35,17.5
+                          S27.2,0,17.5,0 M22.6,17.6c0,0.3-0.3,0.6-0.6,0.6h-2.5v9.7c0,0.3-0.3,0.6-0.6,0.6l0,0h-4.1c-0.3,0-0.6-0.3-0.6-0.6l0,0v-9.7h-1.5
+                          c-0.3,0-0.6-0.3-0.6-0.6l0,0v-4.1c0-0.3,0.3-0.6,0.6-0.6h1.4v-1.2c-0.2-2.6,1.8-4.8,4.3-5c0.2,0,0.4,0,0.6,0l3.2,0
+                          c0.3,0,0.6,0.3,0.6,0.6v3.5c0,0.3-0.3,0.6-0.6,0.6H20c-0.2,0-0.3,0.1-0.3,0.4v1h2.7c0.2,0,0.3,0.1,0.5,0.2
+                          c0.1,0.1,0.2,0.3,0.2,0.5L22.6,17.6z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onclick="launchShare('pinterest');" title="share on pinterest" href="#" data-provider="pinterest" class="social" id="pinterest">
+                                                <svg version="1.1" title="share on pinterest" id="pinterest" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+                  <style type="text/css">
+                    #pinterest .st0{clip-path:url(#SVGID_00000157999089463032930210000003185078586541900702_);}
+                    #pinterest .st1{fill:#212D48;}
+                  </style>
+                                                    <g transform="translate(0 0)">
+                    <g>
+                      <defs>
+                        <rect id="SVGID_1_" width="35" height="35"></rect>
+                      </defs>
+                        <clipPath id="SVGID_00000061473298558475463860000003474499525305546918_">
+                        <use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
+                      </clipPath>
+                        <g transform="translate(0 0)" style="clip-path:url(#SVGID_00000061473298558475463860000003474499525305546918_);">
+                        <path class="st1" d="M17.5,0L17.5,0C7.8,0,0,7.8,0,17.5S7.8,35,17.5,35S35,27.2,35,17.5S27.2,0,17.5,0 M25.9,16.5
+                          c-0.4,1.6-1.2,3.1-2.4,4.3c-1.2,1-2.7,1.6-4.2,1.6c-1.2,0-2.4-0.5-3.2-1.6c-0.2,1-0.4,2-0.7,2.9c-0.3,0.8-0.6,1.5-1.1,2.2
+                          c-0.3,0.5-0.7,1-1.1,1.5c-0.2,0.2-0.4,0.3-0.4-0.1c-0.4-1.5-0.4-3,0-4.5c0.4-1.8,0.9-3.5,1.3-5.3c0.1-0.2,0.1-0.5,0.1-0.7
+                          c0-0.5-0.3-1.1-0.3-1.6c0-0.6,0-1.1,0.2-1.7c0.2-1.1,1.2-1.9,2.3-1.9c3.3,0,0.8,5,0.6,6.5c-0.1,1.1,0.7,2.1,1.8,2.2
+                          c0.1,0,0.2,0,0.3,0c1.9,0,3.3-1.8,3.9-4.3c0.2-0.8,0.2-1.5,0.2-2.3c0-1.3-0.5-2.6-1.5-3.4c-0.9-0.8-2.1-1.2-3.3-1.3
+                          c-1.5-0.1-2.9,0.2-4.2,0.9c-2.4,1.3-3.8,5.1-2,7.4c0.4,0.5,0.2,0.9,0.1,1.4c0,0.2-0.1,0.4-0.2,0.5c-0.6,0.7-1.6-0.5-2-0.9
+                          c-1.9-2.3-1.5-5.7,0.2-8c1-1.4,2.4-2.4,4-3c1.2-0.4,2.5-0.7,3.8-0.7c2.1,0,4.1,0.7,5.7,2.1C25.9,10.6,26.8,13.7,25.9,16.5"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a onclick="launchShare('email');" title="share via email" href="#" data-provider="email" class="" id="email">
+                                                <svg version="1.1" title="share via email" id="emailIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+                  <style type="text/css">
+                    #emailIcon .st0{clip-path:url(#SVGID_00000041997982116115682390000003997468910387938707_);}
+                    #emailIcon .st1{fill:#212D48;}
+                  </style>
+                                                    <g>
+                    <defs>
+                    <rect id="SVGID_1_" width="35" height="35"></rect>
+                    </defs>
+                                                        <clipPath id="SVGID_00000091700515349406769490000015139956551790833564_">
+                    <use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
+                    </clipPath>
+                                                        <g style="clip-path:url(#SVGID_00000091700515349406769490000015139956551790833564_);">
+                      <path class="st1" d="M17.5,0L17.5,0C7.8,0,0,7.8,0,17.5S7.8,35,17.5,35S35,27.2,35,17.5S27.2,0,17.5,0 M27.4,10.6l-8.5,6.3
+                      l-0.4,0.3l-0.4,0.3l-0.6,0.4l-0.6-0.4l-0.4-0.3l-0.4-0.3l-8.5-6.3L27.4,10.6z M7,23.4V11.5c0,0,0-0.1,0-0.1l8.3,6.1L7,23.6
+                      C7,23.5,7,23.5,7,23.4 M7.6,24.4l8.5-6.3l1.4,1l1.4-1l8.5,6.3L7.6,24.4z M28,23.4c0,0.1,0,0.1,0,0.2l-8.3-6.1l8.3-6.1
+                      c0,0,0,0.1,0,0.1L28,23.4z"></path>
+                    </g>
+                  </g>
+                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div><!-- /social bar-->
+                            </section><!-- /intro-text -->
+
+                        </section>
+
+                        <!-- mobile nav -->
+                        <nav class="top-nav">
+                            <input id="menu-toggle" type="checkbox">
+                            <label class="menu-button-container" for="menu-toggle">
+                                <div class="menu-button"></div>
+                            </label>
+                            <ul class="made-nav-mobile menu">
+                                <li><a class="jump-nav" href="#partnersProfessionals">Partners &amp; Professionals</a></li>
+                                <li><a class="jump-nav" href="#commitments">Commitments</a></li>
+                                <li><a class="jump-nav" href="#delFoundationPrograms">Programs</a></li>
+                                <li><a class="jump-nav" href="#news">News</a></li>
+                                <li><a class="jump-nav" href="#getinTouch">Get In Touch</a></li>
+                            </ul>
+                        </nav>
+                        <!-- /mobile nav -->
+
+                        <!-- desktop nav -->
+                        <nav class="made-nav-desktop">
+                            <ul>
+                                <li id="partnersProfessionals"><a class="jump-nav" href="#partnersProfessionals">Partners &amp; Professionals</a></li>
+                                <li id="commitments"><a class="jump-nav" href="#commitments">Commitments</a></li>
+                                <li id="programs"><a class="jump-nav" href="#delFoundationPrograms">Programs</a></li>
+                                <li id="news"><a class="jump-nav" href="#news">News</a></li>
+                                <li id="getinTouch"><a class="jump-nav" href="#getinTouch">Get In Touch</a></li>
+                            </ul>
+                        </nav>
+                        <!-- /desktop nav -->
+
+                        <div class="header-wrapper-overlay"></div>
+
+                        <div class="header-wrapper" style="height: 1024px;">
+                            <div class="pos foreground animate-foreground" style="height: 1024px;"></div>
+                            <div class="pos middleground animate-middleground" style="height: 1024px;"></div>
+                            <div class="pos background animate-background" style="height: 1024px;"></div>
+                        </div>
+
+                    </header>
+
+<!--                    <div class="xpro-item-layer" style="top:0px;left:0px;width:100%;height:100%;opacity:0;background-color:#000" data-effect="slide({X:0, Y:0, opacity:0.4, delay:'800ms', duration:'800ms'})"></div>-->
+
+<!--                    <div class="xpro-item-layer" data-effect="animate({X:'0px', Y:'60px', zoom:'in', delay:'1000ms', duration:'1000ms'})" data-effect-out="animate({X:'0px', Y:'-60px', rotate:'out-left', zoom:'out', opacity:0, delay:'0ms', duration:'800ms'})" style="top:50px;left:0px;right:0px;margin:auto;opacity:0;text-align: center">-->
+<!--                        <h1 class="xpro-item-layer-responsive xp-headtext" style="padding:10px 10px;font-size:48px;">The KEN BURNS Effect</h1>-->
+<!--                    </div>-->
+
+                </div>
+
+<!--                <div class="xpro-slider-item" style="background-color:#990000;">-->
+
+<!--                    <div class="xpro-item-layer xp-layerblock-trans" data-effect="animate({Y:'0px', rotate:'in-right', zoom:'in', delay:'1s', duration:'800ms'})" data-effect-out="animate({Y:'0px', rotate:'out-left', 'zoom':'out', delay:'0s', duration:'800ms', opacity:0.1})"-->
+<!--                        style="top:0;bottom:0;margin:auto;left:0; right:0; opacity:0;line-height: 25px;width:460px;height:260px;">-->
+
+<!--                        <h1 class="xpro-item-layer-responsive" style="font-size:36px;color:#ffffff;margin:30px">Animated Layer</h1>-->
+
+<!--                        <p class="xpro-item-layer" data-effect="fadeIn({opacity: 1, delay:'2s', duration:'0.8s'})" style="left:0px; right:0px;color:#686868; opacity:0;font-size:15px;">Various Layer Effects with friendly syntax</p>-->
+
+<!--                        <div class="xpro-item-layer" data-effect="slide({Y:'-55px', delay:'2.2s', duration:'800ms'})" style="width:100%;text-align: center; opacity:0; bottom: 0px;font-size:20px;color:#ffffff;">-->
+<!--                            <a href="#" class="xpro-item-layer-responsive layer-action-link tomato-red" title="Show me next..." style="padding:20px 25px; font-size:inherit">Show Me!</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+<!--                <div class="xpro-slider-item" style='background-color:#400d85'>-->
+
+<!--                    <div class='xpro-item-layer' data-effect="animate({X:'-180px', skew:'in-right', 'delay':'0.5s', duration:'800ms'})" data-effect-out="animate({X:'180px', rotate:'out-left', 'delay':'0s', duration:'600ms'})" style="top: 100px;right:0px;width:180px;height:150px;font-size:24px;color:#ffffff;background-color:#009900;text-align:center"><br /><i class="fa fa-arrow-left"></i><br />Slide Left</div>-->
+
+<!--                    <div class='xpro-item-layer' data-effect="animate({X:'100px', skew:'in-left', 'delay':'0.75s', duration:'800ms'})" data-effect-out="animate({X:'-100px', rotate:'out-right', 'delay':'0s', duration:'600ms'})" style="top: 260px;right:470px;width:180px;height:150px;font-size:24px;color:#ffffff;background-color:#009900;text-align:center"><br /><i class="fa fa-arrow-right"></i><br />Slide Right</div>-->
+
+<!--                    <div class='xpro-item-layer' data-effect="animate({Y:'100px', skew:'in-down', 'delay':'1s', duration:'800ms'})" data-effect-out="animate({Y:'-100px', rotate:'out-left', 'delay':'0s', duration:'600ms'})" style="top: 0px;right:370px;width:180px;height:150px;font-size:24px;color:#ffffff;background-color:#009900;text-align:center"><br /><i class="fa fa-arrow-down"></i><br />Slide Down</div>-->
+
+<!--                    <div class='xpro-item-layer' data-effect="animate({Y:'-100px', skew:'in-up', 'delay':'1.25s', duration:'800ms'})" data-effect-out="animate({Y:'100px', rotate:'out-right', 'delay':'0s', duration:'600ms'})" style="top: 360px;right:180px;width:180px;height:150px;font-size:24px;color:#ffffff;background-color:#009900;text-align:center"><br /> <i class="fa fa-arrow-up"></i><br />Slide Up</div>-->
+
+<!--                    <h1 class='xpro-item-layer' data-effect="animate({zoom:'in', 'delay':'1.5s', duration:'600ms'})" data-effect-out="animate({X:'-100px', Y:'-100px', zoom:'out', rotate:'out-left', 'delay':'0s', duration:'600ms'})" style="top: 150px;left:220px;font-size:32px;color:#ffffff;text-align:center">Slide, Zoom & Skew</h1>-->
+
+<!--                    <div class='xpro-item-layer' data-effect="animate({Y:'-110px', zoom:'in', 'delay':'1.75s', duration:'1000ms'})" data-effect-out="animate({X:'-100px', Y:'110px', zoom:'out', rotate:'out-left', 'delay':'0s', duration:'600ms'})" style="top: 350px;left:220px;font-size:16px;color:#cccccc;width:250px;">slide in any direction, zoom in/out, skew horizontal or vertical with friendly animation syntax</div>-->
+
+<!--                </div>-->
+
+<!--                <div class="xpro-slider-item" style='background-color:#006564'>-->
+
+<!--                    <div class="xpro-item-layer" data-effect="animate({X:'0px', Y:'60px', skew:'in-up', rotate:'in-right', flip:'in-left', delay:'1000ms', duration:'800ms'})" data-effect-out="animate({X:'0px', Y:'-60px', zoom:'out', opacity:0, delay:'0ms', duration:'800ms'})"-->
+<!--                        style="top:0px;left:0px;right:0px;margin:auto;opacity:0;text-align: center">-->
+<!--                        <h1 class="xpro-item-layer-responsive" style="padding:10px 10px;font-size:44px;color:#ffffff;">Rotate & Flip</h1>-->
+<!--                    </div>-->
+
+<!--                    <div class="xpro-item-layer xp-layerblock-round pilot-blue-trans" data-effect="animate({X:'-220px', Y:'0px', rotate:'in-left', delay:'1500ms', duration:'800ms'})" data-effect-out="animate({X:'-300px', Y:'100px', rotate:'out-right', delay:'0ms', duration:'800ms'})"-->
+<!--                        style="padding-top:60px;line-height: 25px;top:250px;left:0px;right:0px;margin: auto;font-size:16px;width:200px;height:200px">-->
+<!--                        <i class="fa fa-times-circle-o fa-3x"></i><br /><a href="#" class="layer-action-link">No, Thanks!</a>-->
+<!--                    </div>-->
+
+<!--                    <div class="xpro-item-layer xp-layerblock-round airman-blue-trans" data-effect="animate({X:'0px', Y:'0px', flip:'in-left', delay:'1500ms', duration:'800ms'})" data-effect-out="animate({X:'0px', Y:'100px', flip: 'out-right', delay:'0ms', duration:'800ms'})"-->
+<!--                        style="padding-top:60px;line-height: 25px;top:250px;left:0px;right:0px;margin: auto;font-size:16px;width:200px;height:200px">-->
+<!--                        <i class="fa fa-check-circle-o fa-3x"></i><br /><a href="#" class="layer-action-link">I'm Sold!</a>-->
+<!--                    </div>-->
+
+<!--                    <div class="xpro-item-layer xp-layerblock-round flight-blue-trans" data-effect="animate({X:'220px', Y:'0px', rotate:'in-right', delay:'1500ms', duration:'800ms'})" data-effect-out="animate({X:'300px', Y:'100px', rotate:'out-right', delay:'0ms', duration:'800ms'})"-->
+<!--                        style="padding-top:60px;line-height: 25px;top:250px;left:0px;right:0px;margin: auto;font-size:16px;width:200px;height:200px">-->
+<!--                        <i class="fa fa-info-circle fa-3x"></i><br /><a href="#" class="layer-action-link">Show Me More!</a>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+<!--                <div class="xpro-slider-item" style='background-color:#1fa67a'>-->
+
+<!--                    <img src="../images/retro_intrain.jpg" class="xpro-kenburns-dir-center xpro-kenburns-in" />-->
+
+<!--                    <div class="xpro-item-layer" style="top:0px;left:0px;width:100%;height:100%;opacity:0;background-color:#000" data-effect="slide({X:0, Y:0, opacity:0.4, delay:'800ms', duration:'800ms'})"></div>-->
+
+<!--                    <div class="xpro-item-layer" data-effect="animate({X:'0px', Y:'60px', zoom:'in', delay:'1000ms', duration:'1000ms'})" data-effect-out="animate({X:'0px', Y:'-60px', rotate:'out-left', zoom:'out', opacity:0, delay:'0ms', duration:'800ms'})" style="top:50px;left:0px;right:0px;margin:auto;opacity:0;text-align: center">-->
+<!--                        <h1 class="xpro-item-layer-responsive xp-headtext" style="padding:10px 10px;font-size:48px;">The KEN BURNS Effect</h1>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
